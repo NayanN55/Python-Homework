@@ -1,0 +1,56 @@
+def isInt(x):
+    try:
+        int(x)
+        return True
+    except ValueError:
+        return False
+
+def openParenthesis(equation):
+    ans = []
+    a = 0
+    count = 2
+
+    for j in equation:
+        if j == "(":
+            a += 1
+        if a == 1:
+            if isInt(j) and equation[count-3] != "(":
+                ans.append(count)
+        count += 1
+    return ans
+
+def closeParenthesis(equation):
+    ans = []
+    a = 0
+    count = 1
+
+    for j in equation:
+        if j == ")":
+            a += 1
+        if a == 0:
+            if isInt(j) and equation[count] != ")":
+                ans.append(count)
+
+        count += 1
+
+    return ans
+
+def main():
+    equations = open("jr-sample.txt", "r")
+    for line in equations:
+        equation = []
+        for j in line:
+            equation.append(j)
+
+        if "(" in equation:
+            answerPre = openParenthesis(equation)
+            answer = [str(i) for i in answerPre]
+            print(",".join(answer))
+
+        elif ")" in equation:
+            answerPre = closeParenthesis(equation)
+            answer = [str(i) for i in answerPre]
+            print(",".join(answer))
+
+
+main()
